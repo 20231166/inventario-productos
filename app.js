@@ -46,7 +46,7 @@ function validate({ name, category, price, stock }) {
   return null;
 }
 
-// ── Crear / Actualizar ────────────────────────────
+// feature/add-product-form: guardar nuevo producto con validación
 function saveProduct() {
   const data  = readForm();
   const error = validate(data);
