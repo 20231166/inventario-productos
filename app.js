@@ -78,6 +78,7 @@ function saveProduct() {
 }
 
 // ── Editar ────────────────────────────────────────
+// feature/edit-product: cargar datos del producto en el formulario
 function editProduct(id) {
   const p = products.find(p => p.id === id);
   if (!p) return;
