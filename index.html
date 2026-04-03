@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventario de Productos</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-box">INV</span>
+        <span class="logo-text">Inventario<br><small>de Productos</small></span>
+      </div>
+      <div class="header-stats">
+        <div class="stat-chip" id="stat-total">
+          <span class="stat-num" id="count-total">0</span>
+          <span class="stat-label">productos</span>
+        </div>
+        <div class="stat-chip low" id="stat-low">
+          <span class="stat-num" id="count-low">0</span>
+          <span class="stat-label">stock bajo</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- FORMULARIO -->
+    <section class="form-section">
+      <div class="form-card">
+        <div class="form-title">
+          <span id="form-mode-label">➕ Nuevo Producto</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="inp-name">Nombre</label>
+            <input type="text" id="inp-name" placeholder="Ej: Laptop Dell XPS" autocomplete="off"/>
+          </div>
+          <div class="field">
+            <label for="inp-category">Categoría</label>
+            <select id="inp-category">
+              <option value="">— Seleccionar —</option>
+              <option value="Electrónica">Electrónica</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Hogar">Hogar</option>
+              <option value="Herramientas">Herramientas</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="inp-price">Precio (RD$)</label>
+            <input type="number" id="inp-price" placeholder="0.00" min="0" step="0.01"/>
+          </div>
+          <div class="field">
+            <label for="inp-stock">Cantidad en Stock</label>
+            <input type="number" id="inp-stock" placeholder="0" min="0"/>
+          </div>
+          <div class="field full">
+            <label for="inp-description">Descripción</label>
+            <input type="text" id="inp-description" placeholder="Descripción breve del producto"/>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-cancel hidden" id="btn-cancel" onclick="cancelEdit()">Cancelar</button>
+          <button class="btn-save" id="btn-save" onclick="saveProduct()">Guardar Producto</button>
+        </div>
+        <div class="form-error hidden" id="form-error"></div>
+      </div>
+    </section>
+
+    <!-- BUSCADOR Y FILTROS -->
+    <section class="controls-section">
+      <div class="search-bar">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="inp-search" placeholder="Buscar por nombre o categoría…" oninput="renderTable()"/>
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter(this)">Todos</button>
+        <button class="filter-btn" data-filter="low" onclick="setFilter(this)">Stock Bajo</button>
+        <button class="filter-btn" data-filter="ok" onclick="setFilter(this)">Stock OK</button>
+      </div>
+    </section>
+
+    <!-- feature/product-list: tabla de visualización de productos -->
+    <!-- TABLA -->
+    <section class="table-section">
+      <div class="table-wrapper">
+        <table id="product-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <div class="empty-state hidden" id="empty-state">
+          <div class="empty-icon">📦</div>
+          <p>No hay productos que mostrar.</p>
+          <small>Agrega uno usando el formulario de arriba.</small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL DE CONFIRMACIÓN ELIMINAR -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-icon">🗑️</div>
+      <h3>¿Eliminar producto?</h3>
+      <p id="modal-product-name"></p>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">No, cancelar</button>
+        <button class="btn-delete-confirm" id="btn-confirm-delete" onclick="confirmDelete()">Sí, eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
