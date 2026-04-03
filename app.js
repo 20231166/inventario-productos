@@ -137,6 +137,7 @@ function closeModal() {
 }
 
 // ── Filtros ───────────────────────────────────────
+// feature/search-and-filter: filtrar productos por estado de stock
 function setFilter(btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
