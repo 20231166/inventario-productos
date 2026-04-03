@@ -62,12 +62,12 @@ function saveProduct() {
   if (editingId !== null) {
     // UPDATE
     const idx = products.findIndex(p => p.id === editingId);
-    if (idx !== -1) products[idx] = { id: editingId, ...data, updatedAt: new Date().toISOString() };
+    if (idx !== -1) products[idx] = { id: editingId, ...data, updatedAt: new Date().toLocaleDateString('es-DO') };
     showToast('✔ Producto actualizado correctamente.');
     cancelEdit();
   } else {
     // CREATE
-    products.push({ id: nextId++, ...data, createdAt: new Date().toISOString() });
+    products.push({ id: nextId++, ...data, createdAt: new Date().toLocaleDateString('es-DO') });
     showToast('✔ Producto agregado al inventario.');
     clearForm();
   }
@@ -222,7 +222,7 @@ function seedDemo() {
     { name:'Mouse Inalámbrico',     category:'Electrónica',  price:1800,  stock:15, description:'2.4GHz, batería larga duración' },
     { name:'Cuaderno A4 x50',       category:'Otro',         price:120,   stock:0,  description:'Papel rayado, tapa dura' },
   ];
-  demo.forEach(d => products.push({ id: nextId++, ...d, createdAt: new Date().toISOString() }));
+  demo.forEach(d => products.push({ id: nextId++, ...d,createdAt: new Date().toLocaleDateString('es-DO') }));
   save();
 }
 
