@@ -121,6 +121,7 @@ function askDelete(id) {
   document.getElementById('modal-overlay').classList.remove('hidden');
 }
 
+// feature/delete-product: eliminar producto tras confirmación en modal
 function confirmDelete() {
   products = products.filter(p => p.id !== deleteId);
   save();
